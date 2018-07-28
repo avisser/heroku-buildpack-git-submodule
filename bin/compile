@@ -5,9 +5,10 @@ ENV_DIR="$3"
 
 # load required environment variables
 GIT_REPO_URL=$(<"$ENV_DIR/GIT_REPO_URL")
+GIT_MODULES=$(<"$ENV_DIR/GIT_MODULES")
 #GIT_SSH_KEY=$(<"$ENV_DIR/GIT_SSH_KEY")
 
-if [[ -z $GIT_REPO_URL ]]; then
+if [[ -z $GIT_MODULES ]]; then
     echo "Did you forget to set GIT_REPO_URL?"
     exit 1
 fi
@@ -21,19 +22,19 @@ fi
 cd "$APP_DIR"
 
 # remove existing .gitmodules, we'll check out it again
-rm .gitmodules
+#rm .gitmodules
 
 # create an empty repo to fetch into
-git init -q
+#git init -q
 
 # enable sparse checkouts, this will avoid checking out
 # all the files in the repo, we'll only check out .gitmodules
-git config core.sparseCheckout true
-echo ".gitmodules" > .git/info/sparse-checkout
+#git config core.sparseCheckout true
+#echo ".gitmodules" > .git/info/sparse-checkout
 
 # add the repo as a remote and fetch the repo's history
-echo "add remote of $GIT_REPO_URL"
-git remote add origin "$GIT_REPO_URL"
+#echo "add remote of $GIT_REPO_URL"
+#git remote add origin "$GIT_REPO_URL"
 
 # install the ssh key
 #echo "create .ssh"
@@ -44,16 +45,19 @@ git remote add origin "$GIT_REPO_URL"
 #chmod 600 ~/.ssh/id_rsa
 
 # ignore/hide ssh warnings
-echo "Host *" >> ~/.ssh/config
-echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-echo "   UserKnownHostsFile /dev/null" >> ~/.ssh/config
-echo "   LogLevel ERROR" >> ~/.ssh/config
-echo "-----> Installed SSH key from GIT_SSH_KEY"
+#echo "Host *" >> ~/.ssh/config
+#echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+#echo "   UserKnownHostsFile /dev/null" >> ~/.ssh/config
+#echo "   LogLevel ERROR" >> ~/.ssh/config
+#echo "-----> Installed SSH key from GIT_SSH_KEY"
 
 # checkout the revision that's being deployed
-git fetch -q --depth 1 origin -a > /dev/null
-git checkout -q ${SOURCE_VERSION:-master} > /dev/null
-echo "-----> Fetched shallow history from $GIT_REPO_URL"
+# git fetch -q --depth 1 origin -a > /dev/null
+#git checkout -q ${SOURCE_VERSION:-master} > /dev/null
+#echo "-----> Fetched shallow history from $GIT_REPO_URL"
+
+#replace .gitmodules with config version
+echo $GIT_MODULES > .gitmodules
 
 # initialize all the submodules
 git submodule -q update --init --recursive
