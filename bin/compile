@@ -32,12 +32,15 @@ git config core.sparseCheckout true
 echo ".gitmodules" > .git/info/sparse-checkout
 
 # add the repo as a remote and fetch the repo's history
+echo "add remote of $GIT_REPO_URL"
 git remote add origin "$GIT_REPO_URL"
 
 # install the ssh key
-mkdir -p ~/.ssh
+echo "create .ssh"
+mkdir ~/.ssh
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2> /dev/null
-cat "$ENV_DIR/GIT_SSH_KEY" > ~/.ssh/id_rsa
+echo "create id_rsa"
+echo $GIT_SSH_KEY > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
 # ignore/hide ssh warnings
