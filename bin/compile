@@ -25,7 +25,7 @@ cd "$APP_DIR"
 # rm .gitmodules
 
 # create an empty repo to fetch into
-git init -q
+#git init -q
 
 # enable sparse checkouts, this will avoid checking out
 # all the files in the repo, we'll only check out .gitmodules
@@ -33,8 +33,8 @@ git init -q
 #echo ".gitmodules" > .git/info/sparse-checkout
 
 # add the repo as a remote and fetch the repo's history
-echo "add remote of $GIT_REPO_URL"
-git remote add origin "$GIT_REPO_URL"
+#echo "add remote of $GIT_REPO_URL"
+#git remote add origin "$GIT_REPO_URL"
 
 # install the ssh key
 #echo "create .ssh"
@@ -57,9 +57,12 @@ git remote add origin "$GIT_REPO_URL"
 #echo "-----> Fetched shallow history from $GIT_REPO_URL"
 
 #replace .gitmodules with config version
-echo $GIT_MODULES > .gitmodules
+#echo $GIT_MODULES > .gitmodules
 
 # initialize all the submodules
-git submodule -q update --init --recursive
-echo "-----> Checked out all submodules"
-git submodule status | sed 's/^/       * /'
+#git submodule -q update --init --recursive
+#echo "-----> Checked out all submodules"
+#git submodule status | sed 's/^/       * /'
+
+rm -rf platform
+git clone $GIT_PLATFORM_URL
