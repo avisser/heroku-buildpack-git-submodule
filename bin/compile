@@ -65,4 +65,4 @@ cd "$APP_DIR"
 #git submodule status | sed 's/^/       * /'
 
 rm -rf platform
-git clone $GIT_PLATFORM_URL
+git clone $GIT_PLATFORM_REPO
