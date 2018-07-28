@@ -5,17 +5,17 @@ ENV_DIR="$3"
 
 # load required environment variables
 GIT_REPO_URL=$(<"$ENV_DIR/GIT_REPO_URL")
-GIT_SSH_KEY=$(<"$ENV_DIR/GIT_SSH_KEY")
+#GIT_SSH_KEY=$(<"$ENV_DIR/GIT_SSH_KEY")
 
 if [[ -z $GIT_REPO_URL ]]; then
     echo "Did you forget to set GIT_REPO_URL?"
     exit 1
 fi
 
-if [[ -z $GIT_SSH_KEY ]]; then
-    echo "Did you forget to set GIT_SSH_KEY?"
-    exit 1
-fi
+#if [[ -z $GIT_SSH_KEY ]]; then
+#    echo "Did you forget to set GIT_SSH_KEY?"
+#    exit 1
+#fi
 
 # make sure we're in the root of the app dir
 cd "$APP_DIR"
@@ -36,12 +36,12 @@ echo "add remote of $GIT_REPO_URL"
 git remote add origin "$GIT_REPO_URL"
 
 # install the ssh key
-echo "create .ssh"
-mkdir ~/.ssh
-ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2> /dev/null
-echo "create id_rsa"
-echo $GIT_SSH_KEY > ~/.ssh/id_rsa
-chmod 600 ~/.ssh/id_rsa
+#echo "create .ssh"
+#mkdir ~/.ssh
+#ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2> /dev/null
+#echo "create id_rsa"
+#echo $GIT_SSH_KEY > ~/.ssh/id_rsa
+#chmod 600 ~/.ssh/id_rsa
 
 # ignore/hide ssh warnings
 echo "Host *" >> ~/.ssh/config
